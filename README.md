@@ -13,7 +13,7 @@ Este repositório contém o código-fonte e a documentação para um sistema de 
 O sistema inclui uma funcionalidade adicional que simplifica o processo de inserção de endereços. Na página inicial, os usuários podem inserir um CEP em um campo de texto e, ao clicar em "Cadastrar", uma modal central será exibida na tela. Essa modal busca automaticamente informações detalhadas do CEP na API da ViaCep `(https://viacep.com.br/)` e preenche os campos, incluindo logradouro, complemento, bairro, localidade e UF.
 
 ## Tecnologias Utilizadas:
-Linguagem de Programação: Javascript  [<img loading="lazy" src="https://flyclipart.com/thumb2/javascript-map-javascript-javascript-icon-with-png-892806.png" width=115>]
+Linguagem de Programação: Javascript  <img loading="lazy" src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vhv.rs%2Fviewpic%2FhomJoom_library-of-javascript-icon-graphic-freeuse-png-files%2F&psig=AOvVaw0L80SYbY_w83PhCuCe-ysf&ust=1693087119685000&source=images&cd=vfe&opi=89978449&ved=2ahUKEwjOrYGU5_iAAxW_A7kGHWSbCRQQjRx6BAgAEAw" width=115>
 Bibliotecas/Frameworks: [Inserir Bibliotecas/Frameworks]
 Requisições HTTP: [Inserir Biblioteca/API para Requisições HTTP]
 
