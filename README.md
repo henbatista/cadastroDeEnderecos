@@ -14,7 +14,7 @@ O sistema inclui uma funcionalidade adicional que simplifica o processo de inser
 
 ## Tecnologias Utilizadas:
 Linguagem de Programação:  <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/768px-Unofficial_JavaScript_logo_2.svg.png" width=30><br>
-Bibliotecas/Frameworks: <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/768px-Vue.js_Logo_2.svg.png?20170919082558" width=30>
+Bibliotecas/Frameworks: <img loading="lazy" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/768px-Vue.js_Logo_2.svg.png?20170919082558" width=30> <img loading="lazy" src="https://user-images.githubusercontent.com/7110136/29002857-9e802f08-7ab4-11e7-9c31-604b5d0d0c19.png" width=30><Br>
 Requisições HTTP: [Inserir Biblioteca/API para Requisições HTTP]
 
 # Autor
