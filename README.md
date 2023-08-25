@@ -9,7 +9,17 @@ Este repositório contém o código-fonte e a documentação para um sistema de 
 
 `Excluir Endereço:` Permite a exclusão segura de um endereço, removendo-o do sistema permanentemente.
 
+## Integração com ViaCep:
+O sistema inclui uma funcionalidade adicional que simplifica o processo de inserção de endereços. Na página inicial, os usuários podem inserir um CEP em um campo de texto e, ao clicar em "Cadastrar", uma modal central será exibida na tela. Essa modal busca automaticamente informações detalhadas do CEP na API da ViaCep `(https://viacep.com.br/)` e preenche os campos, incluindo logradouro, complemento, bairro, localidade e UF.
+
+## Tecnologias Utilizadas:
+Linguagem de Programação: Javascript  [<img loading="lazy" src="https://flyclipart.com/thumb2/javascript-map-javascript-javascript-icon-with-png-892806.png" width=115>]
+Bibliotecas/Frameworks: [Inserir Bibliotecas/Frameworks]
+Requisições HTTP: [Inserir Biblioteca/API para Requisições HTTP]
+
 # Autor
 
 | [<img loading="lazy" src="https://avatars.githubusercontent.com/u/85231417?v=4" width=115><br><sub>Wellington Henrique Batista</sub>](https://github.com/henbatista) | 
 | :---: |
+
+
