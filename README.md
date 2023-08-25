@@ -11,5 +11,5 @@ Este repositório contém o código-fonte e a documentação para um sistema de 
 
 # Autor
 
-| [<img loading="lazy" src="[https://avatars.githubusercontent.com/u/37356058?v=4](https://avatars.githubusercontent.com/u/85231417?v=4)" width=115><br><sub>Wellington Henrique Batista</sub>](https://github.com/camilafernanda) | 
+| [<img loading="lazy" src="https://avatars.githubusercontent.com/u/85231417?v=4" width=115><br><sub>Wellington Henrique Batista</sub>](https://github.com/henbatista) | 
 | :---: |
