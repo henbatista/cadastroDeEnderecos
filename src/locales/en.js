@@ -1,6 +1,14 @@
 export default {
-  message: "hello i18n !!",
-  h1: {
-    register: "Address Registration",
+  message: {
+    addressRegistration: "Address Registration",
+  },
+  newRegister: {
+    newRegister: "New register",
+  },
+  Cancel: {
+    Cancel: "Cancel",
+  },
+  Save: {
+    Save: "Save",
   },
 };

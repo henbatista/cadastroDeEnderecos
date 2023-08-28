@@ -15,7 +15,9 @@
                 <template>
                   <div>
                     <!-- Title card -->
-                    <h1 class="textTitle">Cadastro de Endereço</h1>
+                    <h1 class="textTitle">
+                      <p>{{ $t("message.addressRegistration") }}</p>
+                    </h1>
                     <v-spacer></v-spacer>
 
                     <v-row class="addressField">
@@ -29,9 +31,9 @@
                       </v-col>
                     </v-row>
                     <div class="buttonContainer">
-                      <v-btn id="buttonStyle" @click="addNew"
-                        >Novo Cadastro</v-btn
-                      >
+                      <v-btn id="buttonStyle" @click="addNew">{{
+                        $t("newRegister.newRegister")
+                      }}</v-btn>
                     </div>
 
                     <!-- Dialog Form to New/Edit Register -->
@@ -44,6 +46,7 @@
                         <v-card-text>
                           <v-container>
                             <!-- Address Field -->
+
                             <v-row>
                               <v-col cols="12" md="6">
                                 <v-text-field
@@ -165,9 +168,16 @@
                           >
                             {{ alertMessage }}
                           </v-alert>
-                          <v-icon small @click="deleteItem(item)">
+                          <v-icon small @click="onDeleteItem(item)">
                             mdi-delete
                           </v-icon>
+                          <div id="loadingDelete" v-if="loadingDelete">
+                            <img
+                              src="../../assets/loading-gif-transparent-10.gif"
+                              alt="loading"
+                              width="50px"
+                            />
+                          </div>
                         </template>
                       </v-data-table>
                     </v-container>
@@ -187,6 +197,15 @@ import axios from "axios";
 import { mapMutations } from "vuex";
 
 export default {
+  components: {},
+
+  props: {
+    label: {
+      type: String,
+      required: true,
+    },
+  },
+
   data() {
     return {
       sequencia: "",
@@ -248,7 +267,7 @@ export default {
       loading: false,
       dialog: false,
       policyDialog: false,
-      itemContagem: {}, // Contador fictício para verificar a contagem de reservas por data
+      itemCount: {},
     };
   },
 
@@ -262,6 +281,14 @@ export default {
       return this.$store.state.items;
     },
     loadingSubmit() {
+      return this.$store.state.loading;
+    },
+
+    itemsDelete() {
+      return this.$store.state.itemsDelete.items;
+    },
+
+    loadingDelete() {
       return this.$store.state.loading;
     },
 
@@ -300,9 +327,9 @@ export default {
         console.error("CEP inválido");
       }
     },
+
     getDate() {
       const dateToday = new Date();
-      // Formate a data como desejar
       const options = { year: "numeric", month: "long", day: "numeric" };
       this.editedItem.createdDate = dateToday.toLocaleDateString(
         "pt-BR",
@@ -312,7 +339,6 @@ export default {
 
     updateNewDate() {
       const updateDateToday = new Date();
-      // Formate a data como desejar
       const options = { year: "numeric", month: "long", day: "numeric" };
       this.editedItem.updateDate = updateDateToday.toLocaleDateString(
         "pt-BR",
@@ -400,6 +426,10 @@ export default {
       this.dialog = true;
     },
 
+    onDeleteItem(item) {
+      this.$store.dispatch("deleteItem", item);
+    },
+
     editItem(item) {
       this.editedIndex = this.items.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -413,6 +443,7 @@ export default {
       this.editedItem.sequencia++;
       this.dialog = false;
       this.editedItem.data = new Date();
+      this.$store.dispatch("updateNewDate");
     },
 
     deleteItem(item) {
@@ -436,9 +467,7 @@ export default {
 
     initialize() {
       this.items = [];
-      this.itemContagem = {}; // Reinicia o contador fictício
-
-      // Atualiza o contador fictício com base nos dados iniciais
+      this.itemCount = {};
       this.items.forEach((item) => {
         this.adicionarItem(item.date);
       });
@@ -471,11 +500,11 @@ export default {
   grid-template-columns: 50%;
   grid-template-rows: 4rem;
   justify-content: center;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  margin-top: 0.5rem;
 }
 
 .loading {
-  font-size: 5rem;
   display: grid;
   padding-top: 5rem;
   grid-template-columns: auto;

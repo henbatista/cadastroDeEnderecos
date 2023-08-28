@@ -1,27 +1,21 @@
 import Vue from "vue";
 import VueI18n from "vue-i18n";
+import enLocale from "./locales/en.js";
+import esLocale from "./locales/es.js";
+import ptLocale from "./locales/pt.js";
 
 Vue.use(VueI18n);
 
-function loadLocaleMessages() {
-  const locales = require.context(
-    "./locales",
-    true,
-    /[A-Za-z0-9-_,\s]+\.json$/i
-  );
-  const messages = {};
-  locales.keys().forEach((key) => {
-    const matched = key.match(/([A-Za-z0-9-_]+)\./i);
-    if (matched && matched.length > 1) {
-      const locale = matched[1];
-      messages[locale] = locales(key);
-    }
-  });
-  return messages;
-}
+const messages = {
+  en: enLocale,
+  es: esLocale,
+  pt: ptLocale,
+};
 
-export default new VueI18n({
-  locale: "en",
-  fallbackLocale: "en",
-  messages: loadLocaleMessages(),
+const i18n = new VueI18n({
+  locale: "pt", // idioma padrão
+  fallbackLocale: "pt", // idioma de fallback
+  messages,
 });
+
+export default i18n;
