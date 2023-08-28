@@ -1,80 +1,79 @@
-<!-- eslint-disable prettier/prettier -->
 <template>
-  <v-app class="app-font">
-    <v-main>
-      <div class="top">
-        <div class="topColor"></div>
-      </div>
-      <div class="center-hv">
-        <Logo />
-      </div>
-    </v-main>
-  </v-app>
+  <div id="app">
+    <router-view />
+  </div>
 </template>
 
+components: { HeaderGlobal, },
+
 <script>
-import Logo from "@/components/atoms/LogoWeon.vue";
+import Vue from "vue";
+import VueRouter from "vue-router";
+
+Vue.use(VueRouter);
 export default {
-  name: "App",
-  components: { Logo },
+  methods: {
+    redirectToLink(link) {
+      const { isNavigationFailure, NavigationFailureType } = VueRouter;
+      this.$router.push(link).catch((e) => {
+        if (!isNavigationFailure(e, NavigationFailureType.duplicated)) {
+          throw Error(e);
+        }
+      });
+    },
+  },
 };
 </script>
 
-<style>
-.top {
+<style lang="scss" scoped>
+#inspire {
+  width: 100%;
+}
+
+.avatar {
+  background-color: #f7f8fa;
+}
+#navigation {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+#logo {
+  width: 50%;
+  margin-top: 2rem;
+  margin-left: 0.7rem;
+  overflow: hidden;
+}
+
+#main {
+  background-color: #f7f8fa;
+}
+
+#sheet-main {
   display: grid;
-  grid-template-columns: 100%;
-  grid-auto-rows: 1rem;
+  grid-auto-flow: column;
+  margin-left: start auto;
 }
-.topColor {
-  margin-top: 0;
-  margin-left: 0;
-  background-image: rgb(2, 0, 36);
-  background-image: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(9, 58, 121, 0.8465511204481793) 31%,
-    rgba(0, 212, 255, 1) 100%
-  );
-}
-html {
-  overflow-y: auto;
-}
-body {
-  font-family: "Roboto";
-}
-.center-hv {
-  margin: auto;
-  position: absolute;
-  width: 100;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+#list {
+  padding-top: 2rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #314156;
 }
 
-.app-font {
-  /* font-family: "Gill Sans Nova", sans-serif !important;
-  font-weight: bold !important; */
+#icon-list {
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 1rem;
 }
 
-::-webkit-scrollbar-track {
-  background-color: #ffffff;
+#icons-header {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: end;
 }
 
-::-webkit-scrollbar {
-  width: 15px;
-  background-color: #f5f5f5;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: #6e6e6e;
-  border-radius: 10px;
-  border-right: 3px #ffffff solid;
-  border-left: 3px #ffffff solid;
-  border-top: 2px white solid;
-  border-bottom: 2px white solid;
-}
-::-webkit-scrollbar-thumb:hover {
-  background-color: #9e9e9e;
+#img-avatar {
+  height: 50px;
+  width: 50px;
 }
 </style>
