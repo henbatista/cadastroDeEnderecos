@@ -21,7 +21,7 @@
                     <v-row class="addressField">
                       <v-col>
                         <v-text-field
-                          v-model="editedItem.zipCode"
+                          v-model="editedItem.cep"
                           label="Digite aqui o CEP que iremos cadastrar"
                           :readonly="loading"
                           @input="fetchData"
@@ -47,7 +47,7 @@
                             <v-row>
                               <v-col cols="12" md="6">
                                 <v-text-field
-                                  v-model="editedItem.locationTitle"
+                                  v-model="editedItem.localizacaoTitulo"
                                   label="Título do Endereço"
                                   :rules="[required]"
                                   :readonly="loading"
@@ -57,7 +57,7 @@
                             <v-row>
                               <v-col cols="12" md="4">
                                 <v-text-field
-                                  v-model="editedItem.publicPlace"
+                                  v-model="editedItem.logradouro"
                                   label="Logradouro"
                                   :rules="[required]"
                                   readonly
@@ -65,7 +65,7 @@
                               </v-col>
                               <v-col cols="12" md="4">
                                 <v-text-field
-                                  v-model="editedItem.complement"
+                                  v-model="editedItem.complemento"
                                   label="Complemento"
                                   :rules="[required]"
                                   :readonly="loading"
@@ -73,7 +73,7 @@
                               </v-col>
                               <v-col cols="12" md="4">
                                 <v-text-field
-                                  v-model="editedItem.neighborhood"
+                                  v-model="editedItem.bairro"
                                   label="Bairro"
                                   :rules="[required]"
                                   readonly
@@ -83,7 +83,7 @@
                             <v-row>
                               <v-col cols="12" md="4">
                                 <v-text-field
-                                  v-model="editedItem.location"
+                                  v-model="editedItem.localidade"
                                   label="Localidade"
                                   :rules="[required]"
                                   readonly
@@ -91,7 +91,7 @@
                               </v-col>
                               <v-col cols="12" md="4">
                                 <v-text-field
-                                  v-model="editedItem.fu"
+                                  v-model="editedItem.uf"
                                   label="UF"
                                   :rules="[required]"
                                   readonly
@@ -189,57 +189,57 @@ import { mapMutations } from "vuex";
 export default {
   data() {
     return {
-      sequence: "",
-      zipCode: "",
-      locationTitle: "",
-      publicPlace: "",
-      complement: "",
-      neighborhood: "",
-      location: "",
-      fu: "",
+      sequencia: "",
+      cep: "",
+      localizacaoTitulo: "",
+      logradouro: "",
+      complemento: "",
+      bairro: "",
+      localidade: "",
+      uf: "",
+      data: null,
       createdDate: "",
       updateDate: "",
-
       form: false,
       components: {},
 
       headers: [
-        { text: "", value: "sequence", sortable: false },
-        { text: "Título do endereço:", value: "locationTitle" },
-        { text: "Logradoro", value: "publicPlace" },
-        { text: "Complemento", value: "complement" },
-        { text: "Bairro", value: "neighborhood" },
-        { text: "Localidade", value: "location" },
-        { text: "UF", value: "fu" },
+        { text: "", value: "sequencia", sortable: false },
+        { text: "Título do endereço:", value: "localizacaoTitulo" },
+        { text: "Logradoro", value: "logradouro" },
+        { text: "Complemento", value: "complemento" },
+        { text: "Bairro", value: "bairro" },
+        { text: "Localidade", value: "localidade" },
+        { text: "UF", value: "uf" },
         { text: "Data de Criação", value: "createdDate" },
-        { text: "Data de Atualização", value: "updateDate" },
+        { text: "Data atualização", value: "updateDate" },
         { text: "Actions", value: "actions", sortable: false },
       ],
 
       editedIndex: -1,
 
       editedItem: {
-        sequence: "",
-        zipCode: "",
-        locationTitle: "",
-        publicPlace: "",
-        complement: "",
-        neighborhood: "",
-        location: "",
-        fu: "",
+        sequencia: "",
+        cep: "",
+        localizacaoTitulo: "",
+        logradouro: "",
+        complemento: "",
+        bairro: "",
+        localidade: "",
+        uf: "",
         createdDate: "",
         updateDate: "",
       },
 
       defaultItem: {
-        sequence: "",
-        zipCode: "",
-        locationTitle: "",
-        publicPlace: "",
-        complement: "",
-        neighborhood: "",
-        location: "",
-        fu: "",
+        sequencia: "",
+        cep: "",
+        localizacaoTitulo: "",
+        logradouro: "",
+        complemento: "",
+        bairro: "",
+        localidade: "",
+        uf: "",
         createdDate: "",
         updateDate: "",
       },
@@ -247,6 +247,8 @@ export default {
       search: "",
       loading: false,
       dialog: false,
+      policyDialog: false,
+      itemContagem: {}, // Contador fictício para verificar a contagem de reservas por data
     };
   },
 
@@ -282,11 +284,11 @@ export default {
 
   methods: {
     async fetchData() {
-      if (/^\d{8}$/.test(this.editedItem.zipCode)) {
+      if (/^\d{8}$/.test(this.editedItem.cep)) {
         this.loading = true;
         try {
           const response = await axios.get(
-            `https://viacep.com.br/ws/${this.editedItem.zipCode}/json/`
+            `https://viacep.com.br/ws/${this.editedItem.cep}/json/`
           );
           Object.assign(this.editedItem, response.data);
         } catch (error) {
@@ -325,7 +327,7 @@ export default {
     },
 
     itemColor(colorItems) {
-      switch (colorItems.fu) {
+      switch (colorItems.uf) {
         case "AC":
           return "clearBlue";
         case "AL":
@@ -408,16 +410,16 @@ export default {
 
     save() {
       this.addProduct(this.editedItem);
-      this.editedItem.sequence++;
+      this.editedItem.sequencia++;
       this.dialog = false;
-      this.editedItem.createdDate = new Date();
+      this.editedItem.data = new Date();
     },
 
     deleteItem(item) {
       const index = this.items.indexOf(item);
       if (
         confirm(
-          `Você tem certeza que quer deletar o itém "${item.locationTitle}" do cadastro?`
+          `Você tem certeza que quer deletar o itém "${item.localizacaoTitulo}" do cadastro?`
         )
       ) {
         this.loading = true;
@@ -434,6 +436,9 @@ export default {
 
     initialize() {
       this.items = [];
+      this.itemContagem = {}; // Reinicia o contador fictício
+
+      // Atualiza o contador fictício com base nos dados iniciais
       this.items.forEach((item) => {
         this.adicionarItem(item.date);
       });
@@ -449,6 +454,16 @@ export default {
   grid-template-rows: auto;
   width: 100%;
   margin: 1rem;
+}
+
+#my-booking {
+  display: grid;
+  grid-template-columns: auto;
+  font-size: 1.5rem;
+  padding: 1rem;
+  justify-content: center;
+  font-weight: bold;
+  color: #314156;
 }
 
 .addressField {
@@ -573,6 +588,12 @@ td.text-start:first-child {
 .title {
   background: #314156;
   color: #fff;
+}
+
+.click-here {
+  font-size: 1.5rem;
+  color: primary;
+  font-weight: bolder;
 }
 
 .card-text {

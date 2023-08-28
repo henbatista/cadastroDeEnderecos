@@ -7,14 +7,14 @@ export default new Vuex.Store({
   state: {
     items: [
       {
-        sequence: "1",
-        zipCode: "",
-        locationTitle: "Paraná",
-        publicPlace: "Cláudio Pereira da Cruz",
-        complement: "Casa",
-        neighborhood: "Afonso Pena",
-        location: "São José dos Painhais",
-        fu: "PR",
+        sequencia: "1",
+        cep: "",
+        localizacaoTitulo: "Paraná",
+        logradouro: "Cláudio Pereira da Cruz",
+        complemento: "Casa",
+        bairro: "Afonso Pena",
+        localidade: "São José dos Painhais",
+        uf: "PR",
         createdDate: "28 de agosto de 2023",
         updateDate: "28 de agosto de 2023",
       },
