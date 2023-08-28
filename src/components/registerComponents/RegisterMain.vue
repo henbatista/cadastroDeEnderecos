@@ -286,7 +286,7 @@ export default {
         this.loading = true;
         try {
           const response = await axios.get(
-            `https://viacep.com.br/ws/${this.editedItem.cep}/json/`
+            `https://viacep.com.br/ws/${this.editedItem.zipCode}/json/`
           );
           Object.assign(this.editedItem, response.data);
         } catch (error) {
