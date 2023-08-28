@@ -4,7 +4,10 @@
       <v-col v-for="rounded in [true]" :key="rounded">
         <v-sheet id="sheet-main" :rounded="rounded" class="mx-auto">
           <div class="loading" v-if="loading">
-            <img src="../../assets/loading-gif-transparent-10.gif" alt="loading" />
+            <img
+              src="../../assets/loading-gif-transparent-10.gif"
+              alt="loading"
+            />
           </div>
           <div v-else>
             <v-form v-model="form" @submit.prevent="onSubmit">
@@ -26,7 +29,9 @@
                       </v-col>
                     </v-row>
                     <div class="buttonContainer">
-                      <v-btn id="buttonStyle" @click="addNew">Novo Cadastro</v-btn>
+                      <v-btn id="buttonStyle" @click="addNew"
+                        >Novo Cadastro</v-btn
+                      >
                     </div>
 
                     <!-- Dialog Form to New/Edit Register -->
@@ -118,7 +123,9 @@
                           <v-spacer></v-spacer>
 
                           <!-- Cancel BTN  -->
-                          <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+                          <v-btn color="blue darken-1" text @click="close"
+                            >Cancel</v-btn
+                          >
                           <!-- Save BTN -->
                           <v-btn
                             color="blue darken-1"
@@ -158,7 +165,9 @@
                           >
                             {{ alertMessage }}
                           </v-alert>
-                          <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+                          <v-icon small @click="deleteItem(item)">
+                            mdi-delete
+                          </v-icon>
                         </template>
                       </v-data-table>
                     </v-container>
@@ -293,14 +302,20 @@ export default {
       const dateToday = new Date();
       // Formate a data como desejar
       const options = { year: "numeric", month: "long", day: "numeric" };
-      this.editedItem.createdDate = dateToday.toLocaleDateString("pt-BR", options);
+      this.editedItem.createdDate = dateToday.toLocaleDateString(
+        "pt-BR",
+        options
+      );
     },
 
     updateNewDate() {
       const updateDateToday = new Date();
       // Formate a data como desejar
       const options = { year: "numeric", month: "long", day: "numeric" };
-      this.editedItem.updateDate = updateDateToday.toLocaleDateString("pt-BR", options);
+      this.editedItem.updateDate = updateDateToday.toLocaleDateString(
+        "pt-BR",
+        options
+      );
     },
 
     ordenarTabela() {
