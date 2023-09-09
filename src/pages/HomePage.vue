@@ -2,7 +2,7 @@
   <v-app>
     <v-main id="main">
       <v-container fluid>
-        <SheetsTitle text="Overview" pictureSrc="Logo-WeON.png" class="Title" />
+        <SheetsTitle text="Overview" pictureSrc="logo.png" class="Title" />
         <MainRegister />
       </v-container>
     </v-main>
