@@ -9,6 +9,9 @@ export default new Vuex.Store({
     colorItems: [],
     loading: false,
     dialog: false,
+    editedItem: {
+      cep: "",
+    },
   },
   getters: {
     //Add account in form

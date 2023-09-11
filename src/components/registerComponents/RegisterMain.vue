@@ -4,10 +4,7 @@
       <v-col v-for="rounded in [true]" :key="rounded">
         <v-sheet id="sheet-main" :rounded="rounded" class="mx-auto">
           <div class="loading" v-if="loading">
-            <img
-              src="../../assets/loading-gif-transparent-10.gif"
-              alt="loading"
-            />
+            <loadingIndicator :loading="loading" />
           </div>
           <div v-else>
             <v-form v-model="form" @submit.prevent="onSubmit">
@@ -117,7 +114,6 @@
                                   readonly
                                 ></v-text-field>
                               </v-col>
-                              <!-- Outros campos do formulário aqui -->
                             </v-row>
                           </v-container>
                         </v-card-text>
@@ -168,16 +164,9 @@
                           >
                             {{ alertMessage }}
                           </v-alert>
-                          <v-icon small @click="onDeleteItem(item)">
+                          <v-icon small @click="deleteItem(item)">
                             mdi-delete
                           </v-icon>
-                          <div id="loadingDelete" v-if="loadingDelete">
-                            <img
-                              src="../../assets/loading-gif-transparent-10.gif"
-                              alt="loading"
-                              width="50px"
-                            />
-                          </div>
                         </template>
                       </v-data-table>
                     </v-container>
@@ -195,9 +184,12 @@
 <script>
 import axios from "axios";
 import { mapMutations } from "vuex";
+import LoadingIndicator from "@/components/util/LoadingIndicator.vue";
 
 export default {
-  components: {},
+  components: {
+    LoadingIndicator,
+  },
 
   props: {
     label: {
@@ -230,8 +222,6 @@ export default {
         { text: "Bairro", value: "bairro" },
         { text: "Localidade", value: "localidade" },
         { text: "UF", value: "uf" },
-        { text: "Data de Criação", value: "createdDate" },
-        { text: "Data atualização", value: "updateDate" },
         { text: "Actions", value: "actions", sortable: false },
       ],
 
@@ -248,6 +238,7 @@ export default {
         uf: "",
         createdDate: "",
         updateDate: "",
+        loadingDelete: false,
       },
 
       defaultItem: {
@@ -261,6 +252,7 @@ export default {
         uf: "",
         createdDate: "",
         updateDate: "",
+        loadingDelete: false,
       },
 
       search: "",
@@ -426,37 +418,41 @@ export default {
       this.dialog = true;
     },
 
-    onDeleteItem(item) {
-      this.$store.dispatch("deleteItem", item);
-    },
-
     editItem(item) {
-      this.editedIndex = this.items.indexOf(item);
+      // Set the editedItem to the selected item for editing
       this.editedItem = Object.assign({}, item);
+      this.editedIndex = this.items.indexOf(item);
+
+      // Open the dialog for editing
       this.dialog = true;
     },
 
     ...mapMutations(["addProduct"]),
 
     save() {
-      this.addProduct(this.editedItem);
-      this.editedItem.sequencia++;
+      if (this.editedIndex === -1) {
+        // Adding a new item
+        this.addProduct(this.editedItem);
+        this.editedItem.sequencia++;
+      } else {
+        // Editing an existing item
+        this.$set(this.items, this.editedIndex, this.editedItem);
+      }
+
       this.dialog = false;
       this.editedItem.data = new Date();
-      this.$store.dispatch("updateNewDate");
     },
 
     deleteItem(item) {
       const index = this.items.indexOf(item);
       if (
         confirm(
-          `Você tem certeza que quer deletar o itém "${item.localizacaoTitulo}" do cadastro?`
+          `Você tem certeza que quer deletar o item "${item.localizacaoTitulo}" do cadastro?`
         )
       ) {
-        this.loading = true;
+        item.loading = true;
         setTimeout(() => {
           this.items.splice(index, 1);
-          this.loading = false;
         }, 1000);
       }
     },
@@ -526,12 +522,14 @@ export default {
   grid-template-rows: 10rem, 200rem;
   grid-gap: 0.2rem;
 }
+
 .buttonContainer {
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto;
   justify-content: center;
 }
+
 #buttonStyle {
   margin-bottom: 1.5rem;
   color: #314156;
