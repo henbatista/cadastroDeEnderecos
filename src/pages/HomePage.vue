@@ -2,7 +2,7 @@
   <v-app>
     <v-main id="main">
       <v-container fluid>
-        <SheetsTitle text="Overview" pictureSrc="logo.png" class="Title" />
+        <SheetsTitle text="Overview" pictureSrc="logo.png" />
         <MainRegister />
       </v-container>
     </v-main>
@@ -11,7 +11,7 @@
 
 <script>
 import MainRegister from "@/components/registerComponents/RegisterMain.vue";
-import SheetsTitle from "@/components/util/SheetsTitle.vue";
+import SheetsTitle from "@/components/util/LogoMain.vue";
 
 export default {
   data: () => ({ drawer: null }),
@@ -23,11 +23,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.Title {
-  display: grid;
-  grid-template-columns: 50% 50%;
-}
-
 #main {
   background-color: #f7f8fa;
 }

@@ -1,8 +1,8 @@
 <template>
   <div id="container">
-    <v-chip id="chips" color="#fff" label>
+    <div>
       <img :src="resolve_img_url(pictureSrc)" />
-    </v-chip>
+    </div>
   </div>
 </template>
 
@@ -24,19 +24,11 @@ export default {
 </script>
 
 <style>
-.Sheet-view {
-  background: #b8fc3c;
-  border: #b8fc3c;
-}
-
 #container {
-  display: grid;
-  grid-template-columns: 500px;
+  padding: 1rem;
+  display: flex;
   justify-content: center;
-  color: #314156;
-}
-
-#chips {
-  padding: 5rem;
+  align-items: center;
+  height: 100%;
 }
 </style>
